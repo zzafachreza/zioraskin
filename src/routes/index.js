@@ -33,6 +33,10 @@ import {
   Order,
   OrderAdd,
   OrderDetail,
+  Packing,
+  PackingDetail,
+  Scan,
+  PackingKirim,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -252,7 +256,7 @@ export default function Router() {
         component={Produk}
         options={{
           headerShown: true,
-          headerTitle: 'Kelola Produk',
+          headerTitle: 'Data Barang',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -429,6 +433,58 @@ export default function Router() {
         options={{
           headerShown: true,
           headerTitle: 'Detail Order Pesanan',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="Packing"
+        component={Packing}
+        options={{
+          headerShown: true,
+          headerTitle: 'Packing Pesanan',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="PackingDetail"
+        component={PackingDetail}
+        options={{
+          headerShown: true,
+          headerTitle: 'Detail Packing Pesanan',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="Scan"
+        component={Scan}
+        options={{
+          headerShown: true,
+          headerTitle: 'Scan Resi Pesanan',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="PackingKirim"
+        component={PackingKirim}
+        options={{
+          headerShown: true,
+          headerTitle: 'Pesanan Terkirim',
           headerStyle: {
             backgroundColor: colors.white,
           },

@@ -18,7 +18,7 @@ import { Modal } from 'react-native';
 
 
 
-export default function OrderDetail({ navigation, route }) {
+export default function PackingDetail({ navigation, route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState([]);
     const isFocused = useIsFocused();
@@ -26,7 +26,7 @@ export default function OrderDetail({ navigation, route }) {
     const [edit, setEdit] = useState({});
 
     const getDetail = () => {
-        axios.post(apiURL + 'order_detail', {
+        axios.post(apiURL + 'packing_detail', {
             nomor_order: route.params.nomor_order
         }).then(res => {
             setLoading(false);
@@ -156,10 +156,10 @@ export default function OrderDetail({ navigation, route }) {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         flexDirection: 'row',
-                                        flex: 1,
+
                                     }}>
                                         <View style={{
-                                            backgroundColor: colors.success,
+                                            backgroundColor: colors.warning,
                                             width: 70,
                                             height: 20,
                                             justifyContent: 'center',
@@ -172,29 +172,13 @@ export default function OrderDetail({ navigation, route }) {
                                                 fontFamily: fonts.secondary[600],
                                                 fontSize: 15,
                                                 color: colors.white
-                                            }}>{i.qty_order} Pcs</Text>
+                                            }}>{i.qty_packing} Pcs</Text>
 
 
                                         </View>
 
                                     </View>
-                                    <View style={{
-                                        flex: 1,
-                                        justifyContent: 'flex-end',
-                                        alignItems: 'flex-end'
-                                    }}>
 
-                                        <TouchableOpacity onPress={() => {
-                                            setModalVisible(true);
-                                            setEdit(i);
-                                            setTimeout(() => {
-                                                _myinput.current.focus();
-                                            }, 1000)
-
-                                        }}>
-                                            <Icon type='ionicon' name='create' color={colors.secondary} />
-                                        </TouchableOpacity>
-                                    </View>
                                 </View>
                             )
                         })}
@@ -226,14 +210,14 @@ export default function OrderDetail({ navigation, route }) {
 
                 }}>
                     <MyButton onPress={() => {
-                        Alert.alert(MYAPP, 'Apakah kamu yakin akan packing pesanan ini ?', [
+                        Alert.alert(MYAPP, 'Apakah kamu yakin akan unpacking / bongkar pesanan ini ?', [
                             { text: 'TIDAK' },
                             {
-                                text: 'PACKING PESANAN',
+                                text: 'UNPACKING PESANAN',
                                 onPress: () => {
 
                                     setLoading(true);
-                                    axios.post(apiURL + 'order_packing', {
+                                    axios.post(apiURL + 'order_unpacking', {
                                         nomor_order: route.params.nomor_order
                                     }).then(res => {
                                         console.log(res.data);
@@ -251,7 +235,7 @@ export default function OrderDetail({ navigation, route }) {
                                 }
                             }
                         ])
-                    }} title="Buat Packing Pesanan" warna={colors.secondary} Icons="download-outline" />
+                    }} title="Unpacking / Bongkar Pesanan" warna={colors.danger} Icons="download-outline" />
                 </View>
 
             </View>}

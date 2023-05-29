@@ -76,13 +76,13 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
       </View>
       <View style={{
-        flex: 0.3,
+        flex: 0.2,
         justifyContent: 'center',
         alignItems: 'center'
       }}>
         <Image source={require('../../assets/logo.png')} style={{
           width: 150,
-          height: 150,
+          height: 100,
           resizeMode: 'contain'
         }} />
       </View>
@@ -99,7 +99,6 @@ export default function Home({ navigation }) {
       }}>
 
         <View style={{
-          marginTop: windowWidth / 8,
           flexDirection: 'row',
           justifyContent: 'space-around'
         }}>
@@ -152,7 +151,7 @@ export default function Home({ navigation }) {
           </TouchableOpacity>
         </View>
         <View style={{
-          marginTop: 30,
+          marginTop: 10,
           flexDirection: 'row',
           justifyContent: 'space-around'
         }}>
@@ -180,7 +179,7 @@ export default function Home({ navigation }) {
             }}>Order{'\n'}Pemesanan</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => navigation.navigate('Transaksi')} style={{
+          <TouchableOpacity onPress={() => navigation.navigate('Packing')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
             elevation: 1,
@@ -204,6 +203,60 @@ export default function Home({ navigation }) {
             }}>Packing{'\n'}Pemesanan</Text>
           </TouchableOpacity>
         </View>
+        <View style={{
+          marginTop: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-around'
+        }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Scan')} style={{
+            width: windowWidth / 3,
+            borderRadius: 10,
+            elevation: 1,
+            borderWidth: 1,
+            borderColor: colors.zavalabs,
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Image source={require('../../assets/scan.png')} style={{
+              width: 80,
+              height: 80,
+              resizeMode: 'contain'
+            }} />
+            <Text style={{
+              top: 10,
+              fontSize: 14,
+              fontFamily: fonts.secondary[600],
+              marginBottom: 10,
+              textAlign: 'center'
+            }}>Scan{'\n'}Pemesanan</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => navigation.navigate('PackingKirim')} style={{
+            width: windowWidth / 3,
+            borderRadius: 10,
+            elevation: 1,
+            borderWidth: 1,
+            borderColor: colors.zavalabs,
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Image source={require('../../assets/A6.png')} style={{
+              width: 80,
+              height: 80,
+              resizeMode: 'contain'
+            }} />
+            <Text style={{
+              top: 10,
+              fontSize: 14,
+              fontFamily: fonts.secondary[600],
+              marginBottom: 10,
+              textAlign: 'center'
+            }}>Pesanan{'\n'}Terkirim</Text>
+          </TouchableOpacity>
+        </View>
+
 
 
       </View>

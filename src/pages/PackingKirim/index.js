@@ -16,7 +16,7 @@ import 'intl/locale-data/jsonp/en';
 import moment from 'moment';
 import 'moment/locale/id'
 
-export default function Order({ navigation }) {
+export default function PackingKirim({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const isFocused = useIsFocused();
 
@@ -38,7 +38,7 @@ export default function Order({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'order').then(res => {
+        axios.post(apiURL + 'packing_kirim').then(res => {
             console.log(res.data);
             setData(res.data);
             setTemp(res.data);
@@ -49,7 +49,7 @@ export default function Order({ navigation }) {
     const __renderItem = ({ item }) => {
 
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('OrderDetail', item)} style={{
+            <TouchableOpacity onPress={() => navigation.navigate('PackingDetail', item)} style={{
                 borderBottomWidth: 1,
                 borderBottomColor: colors.zavalabs,
                 backgroundColor: colors.white,
@@ -143,6 +143,7 @@ export default function Order({ navigation }) {
                                 color: colors.foourty
                             }}>{item.resi}</Text>
                         </View>
+
                     </View>
 
 
@@ -153,7 +154,7 @@ export default function Order({ navigation }) {
                     alignItems: 'center',
                     width: 30,
                 }}>
-                    <Icon color={colors.white} type='ionicon' name='search' />
+                    <Icon color={colors.white} type='ionicon' name='checkmark-circle' />
                 </View>
 
             </TouchableOpacity >
@@ -207,11 +208,15 @@ export default function Order({ navigation }) {
                                 if (filter.key == 'resi') {
                                     const filtered = data.filter(i => i.resi.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
-                                } else if (filter.key == 'nomor_order') {
+                                } else if (filter.key == 'nomoer_order') {
                                     console.log('merek')
-                                    const filtered = data.filter(i => i.nomor_order.toLowerCase().indexOf(x.toLowerCase()) > -1);
+                                    const filtered = data.filter(i => i.nomoer_order.toLowerCase().indexOf(x.toLowerCase()) > -1);
+                                    setData(filtered);
+                                } else if (filter.key == 'kode') {
+                                    const filtered = data.filter(i => i.kode.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
                                 }
+
                             }
 
 
@@ -277,8 +282,8 @@ export default function Order({ navigation }) {
 
                                 setModalVisible(false);
                             }} data={[
-                                { value: 'resi', label: 'Resi' },
-                                { value: 'nomor_order', label: 'Nomor Order' },
+                                { value: 'resi', label: 'Reis' },
+                                { value: 'nomor_order', label: 'nomor_order' },
 
 
 

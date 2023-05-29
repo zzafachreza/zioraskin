@@ -23,7 +23,7 @@ export default function Produk({ navigation }) {
     const [data, setData] = useState([]);
     const [tmp, setTemp] = useState([]);
     const [filter, setFilter] = useState({
-        key: 'nama_produk',
+        key: 'nama_barang',
     })
     useEffect(() => {
 
@@ -36,7 +36,7 @@ export default function Produk({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'produk').then(res => {
+        axios.post(apiURL + 'barang').then(res => {
             console.log(res.data);
             setData(res.data);
             setTemp(res.data);
@@ -55,7 +55,7 @@ export default function Produk({ navigation }) {
     const __renderItem = ({ item }) => {
 
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('ProdukDetail', item)} style={{
+            <View style={{
                 borderBottomWidth: 1,
                 borderBottomColor: colors.zavalabs,
                 backgroundColor: colors.white,
@@ -74,12 +74,18 @@ export default function Produk({ navigation }) {
                         flexDirection: 'row',
 
                     }}>
-                        <Text style={{
+                        <View style={{
                             flex: 1,
-                            fontFamily: fonts.secondary[600],
-                            fontSize: 14,
-                            color: colors.black
-                        }}>{item.nama_produk}</Text>
+                        }}>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[600],
+                                fontSize: 14,
+                                color: colors.black
+                            }}>{item.nama_barang}</Text>
+
+                        </View>
+
 
                         <View style={{
                             backgroundColor: colors.success,
@@ -89,8 +95,8 @@ export default function Produk({ navigation }) {
                             <Text style={{
                                 fontFamily: fonts.secondary[600],
                                 color: colors.white,
-                                fontSize: 12
-                            }}>Stock : {item.stok}</Text>
+                                fontSize: 15
+                            }}>{item.qty_total} Pcs</Text>
                         </View>
 
                     </View>
@@ -110,7 +116,7 @@ export default function Produk({ navigation }) {
                                     fontSize: 12,
                                     color: colors.foourty,
                                     flex: 0.4,
-                                }}>Merek</Text>
+                                }}>Barcode</Text>
                                 <Text style={{
                                     fontFamily: fonts.secondary[400],
                                     fontSize: 12,
@@ -122,7 +128,7 @@ export default function Produk({ navigation }) {
                                     fontFamily: fonts.secondary[600],
                                     fontSize: 12,
                                     color: colors.foourty
-                                }}>{item.merek}</Text>
+                                }}>{item.barcode}</Text>
                             </View>
                             <View style={{
                                 flexDirection: 'row'
@@ -132,7 +138,7 @@ export default function Produk({ navigation }) {
                                     fontSize: 12,
                                     color: colors.foourty,
                                     flex: 0.4,
-                                }}>Harga</Text>
+                                }}>SKU</Text>
                                 <Text style={{
                                     fontFamily: fonts.secondary[400],
                                     fontSize: 12,
@@ -144,42 +150,59 @@ export default function Produk({ navigation }) {
                                     fontFamily: fonts.secondary[600],
                                     fontSize: 12,
                                     color: colors.foourty
-                                }}>{new Intl.NumberFormat().format(item.harga_jual)}</Text>
+                                }}>{item.sku}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: 12,
+                                    color: colors.foourty,
+                                    flex: 0.4,
+                                }}>Stok Gudang</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: 12,
+                                    color: colors.foourty,
+                                    flex: 0.2,
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: 12,
+                                    color: colors.foourty
+                                }}>{item.qty_gudang}</Text>
+                            </View>
+                            <View style={{
+                                flexDirection: 'row'
+                            }}>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: 12,
+                                    color: colors.foourty,
+                                    flex: 0.4,
+                                }}>Stok Reject</Text>
+                                <Text style={{
+                                    fontFamily: fonts.secondary[400],
+                                    fontSize: 12,
+                                    color: colors.foourty,
+                                    flex: 0.2,
+                                }}>:</Text>
+                                <Text style={{
+                                    flex: 1,
+                                    fontFamily: fonts.secondary[600],
+                                    fontSize: 12,
+                                    color: colors.foourty
+                                }}>{item.qty_tolak}</Text>
                             </View>
                         </View>
 
-                        <View style={{
-                            flex: 1,
-                            padding: 5,
-                        }}>
 
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.4,
-                            }}>Motor Lainnya</Text>
-
-                            <Text style={{
-                                flex: 1,
-                                fontFamily: fonts.secondary[600],
-                                fontSize: 12,
-                                color: colors.primary
-                            }}>{item.motor_lainnya}</Text>
-
-                        </View>
                     </View>
                 </View>
-                <View style={{
-                    backgroundColor: colors.secondary,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    width: 30,
-                }}>
-                    <Icon color={colors.white} type='ionicon' name='chevron-forward' />
-                </View>
 
-            </TouchableOpacity >
+            </View >
         )
 
     }
@@ -219,7 +242,7 @@ export default function Produk({ navigation }) {
                         borderBottomRightRadius: 10,
                         borderTopRightRadius: 10,
                     }}>
-                        <TextInput placeholder='Cari Produk . . .' style={{
+                        <TextInput placeholder='Cari Barang . . .' style={{
                             fontFamily: fonts.secondary[400],
                             fontSize: 18,
                         }} onChangeText={x => {
@@ -227,15 +250,15 @@ export default function Produk({ navigation }) {
                             if (x.length == 0) {
                                 setData(tmp)
                             } else {
-                                if (filter.key == 'nama_produk') {
-                                    const filtered = data.filter(i => i.nama_produk.toLowerCase().indexOf(x.toLowerCase()) > -1);
+                                if (filter.key == 'nama_barang') {
+                                    const filtered = data.filter(i => i.nama_barang.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
-                                } else if (filter.key == 'merek') {
+                                } else if (filter.key == 'barcode') {
                                     console.log('merek')
-                                    const filtered = data.filter(i => i.merek.toLowerCase().indexOf(x.toLowerCase()) > -1);
+                                    const filtered = data.filter(i => i.barcode.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
-                                } else if (filter.key == 'motor_lainnya') {
-                                    const filtered = data.filter(i => i.motor_lainnya.toLowerCase().indexOf(x.toLowerCase()) > -1);
+                                } else if (filter.key == 'sku') {
+                                    const filtered = data.filter(i => i.sku.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
                                 }
 
@@ -265,23 +288,6 @@ export default function Produk({ navigation }) {
 
 
 
-            <View style={{
-                position: 'absolute',
-                bottom: 20,
-                right: 20,
-            }}>
-                <TouchableOpacity onPress={() => navigation.navigate('ProdukAdd')} style={{
-                    width: 60,
-                    height: 60,
-                    elevation: 4,
-                    backgroundColor: colors.primary,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    borderRadius: 30,
-                }}>
-                    <Icon color={colors.white} type='ionicon' name='add' size={30} />
-                </TouchableOpacity>
-            </View>
 
             <Modal
                 animationType="fade"
@@ -315,9 +321,9 @@ export default function Produk({ navigation }) {
                             flex: 1,
                         }}>
                             <MyPicker label="Cari Berdasarkan Field" value={filter.key} iconname='ribbon' onValueChange={x => setFilter({ ...filter, key: x })} data={[
-                                { value: 'nama_produk', label: 'Nama Produk' },
-                                { value: 'merek', label: 'Merek' },
-                                { value: 'motor_lainnya', label: 'Motor Lainnya' },
+                                { value: 'nama_barang', label: 'Nama Barang' },
+                                { value: 'barcode', label: 'Barcode' },
+                                { value: 'sku', label: 'SKU' },
 
 
                             ]} />

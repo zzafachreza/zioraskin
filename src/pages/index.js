@@ -29,13 +29,16 @@ import CekDetail from './CekDetail';
 import Order from './Order';
 import OrderAdd from './OrderAdd';
 import OrderDetail from './OrderDetail';
+import Packing from './Packing';
+import PackingDetail from './PackingDetail';
+import Scan from './Scan';
+import PackingKirim from './PackingKirim';
 
 // produk
 
 
 
 // NEW
-
 
 
 
@@ -81,6 +84,10 @@ export {
   CekDetail,
   Order,
   OrderAdd,
-  OrderDetail
+  OrderDetail,
+  Packing,
+  PackingDetail,
+  Scan,
+  PackingKirim
 
 };

@@ -14,9 +14,18 @@ import { FloatingAction } from "react-native-floating-action";
 import 'intl';
 import 'intl/locale-data/jsonp/en';
 import moment from 'moment';
+import ZavalabsScanner from 'react-native-zavalabs-scanner'
 import 'moment/locale/id'
 
-export default function Order({ navigation }) {
+
+
+
+var MySound = new Sound(
+    require('../../assets/error.mp3'),
+    Sound.MAIN_BUNDLE,
+).release();
+
+export default function Scan({ navigation }) {
     const [modalVisible, setModalVisible] = useState(false);
     const isFocused = useIsFocused();
 
@@ -25,7 +34,7 @@ export default function Order({ navigation }) {
     const [data, setData] = useState([]);
     const [tmp, setTemp] = useState([]);
     const [filter, setFilter] = useState({
-        key: 'nomor_order',
+        key: 'resi',
     })
     useEffect(() => {
 
@@ -38,7 +47,7 @@ export default function Order({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'order').then(res => {
+        axios.post(apiURL + 'scan_hasil').then(res => {
             console.log(res.data);
             setData(res.data);
             setTemp(res.data);
@@ -49,7 +58,7 @@ export default function Order({ navigation }) {
     const __renderItem = ({ item }) => {
 
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('OrderDetail', item)} style={{
+            <View style={{
                 borderBottomWidth: 1,
                 borderBottomColor: colors.zavalabs,
                 backgroundColor: colors.white,
@@ -64,99 +73,70 @@ export default function Order({ navigation }) {
                     justifyContent: 'center',
                     padding: 10,
                 }}>
-
-                    <Text style={{
-
-                        fontFamily: fonts.secondary[400],
-                        fontSize: 11,
-                        color: colors.black
-                    }}>{moment(item.tanggal_order).format('dddd, DD MMM YYYY')}</Text>
-
-
                     <View style={{
-                        flex: 1
+                        flexDirection: 'row',
+
                     }}>
                         <View style={{
-                            marginTop: 5,
-                            flexDirection: 'row'
+                            flex: 1,
                         }}>
                             <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.3,
-                            }}>Marketplace</Text>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.1,
-                            }}>:</Text>
-                            <Text style={{
-                                flex: 1,
-                                fontFamily: fonts.secondary[600],
-                                fontSize: 12,
-                                color: colors.foourty
-                            }}>{item.marketplace}</Text>
-                        </View>
-                        <View style={{
-                            flexDirection: 'row'
-                        }}>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.3,
-                            }}>No. Pesanan</Text>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.1,
-                            }}>:</Text>
-                            <Text style={{
-                                flex: 1,
-                                fontFamily: fonts.secondary[600],
-                                fontSize: 12,
-                                color: colors.foourty
-                            }}>{item.nomor_order}</Text>
-                        </View>
-                        <View style={{
-                            flexDirection: 'row'
-                        }}>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.3,
-                            }}>Resi</Text>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.1,
-                            }}>:</Text>
-                            <Text style={{
-                                flex: 1,
-                                fontFamily: fonts.secondary[600],
-                                fontSize: 12,
-                                color: colors.foourty
+
+                                fontFamily: fonts.secondary[800],
+                                fontSize: 14,
+                                color: colors.black
                             }}>{item.resi}</Text>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[800],
+                                fontSize: 14,
+                                color: colors.danger
+                            }}>{item.nomor_order}</Text>
+                            <Text style={{
+
+                                fontFamily: fonts.secondary[400],
+                                fontSize: 11,
+                                color: colors.black
+                            }}>{moment(item.tanggal_scan).format('dddd, DD MMM YYYY')} Pukul {item.jam_scan}</Text>
                         </View>
+
+
                     </View>
 
 
                 </View>
-                <View style={{
-                    backgroundColor: colors.success,
+
+                <TouchableOpacity onPress={() => {
+                    Alert.alert(MYAPP, 'Apakah kamu akan hapus resi ini ?', [
+                        { text: 'TIDAK' },
+                        {
+                            text: 'HAPUS',
+                            onPress: () => {
+                                axios.post(apiURL + 'scan_hapus', {
+                                    id: item.id
+                                }).then(res => {
+                                    console.log(res.data);
+                                    showMessage({
+                                        type: 'success',
+                                        message: res.data.message
+                                    });
+                                    getTransaction();
+                                })
+                            }
+                        }
+                    ]);
+                }} style={{
+                    flex: 1,
+                    backgroundColor: colors.danger,
                     justifyContent: 'center',
                     alignItems: 'center',
-                    width: 30,
+                    width: 40,
                 }}>
-                    <Icon color={colors.white} type='ionicon' name='search' />
-                </View>
+                    <Icon color={colors.white} type='ionicon' name='trash' />
+                </TouchableOpacity>
 
-            </TouchableOpacity >
+
+            </View >
         )
 
     }
@@ -196,7 +176,7 @@ export default function Order({ navigation }) {
                         borderBottomRightRadius: 10,
                         borderTopRightRadius: 10,
                     }}>
-                        <TextInput placeholder='Cari resi / nomor order . . .' style={{
+                        <TextInput placeholder='Cari Resi . . .' style={{
                             fontFamily: fonts.secondary[400],
                             fontSize: 18,
                         }} onChangeText={x => {
@@ -208,10 +188,10 @@ export default function Order({ navigation }) {
                                     const filtered = data.filter(i => i.resi.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
                                 } else if (filter.key == 'nomor_order') {
-                                    console.log('merek')
                                     const filtered = data.filter(i => i.nomor_order.toLowerCase().indexOf(x.toLowerCase()) > -1);
                                     setData(filtered);
                                 }
+
                             }
 
 
@@ -238,7 +218,48 @@ export default function Order({ navigation }) {
 
 
 
+            <View style={{
+                position: 'absolute',
+                bottom: 20,
+                right: 20,
+            }}>
+                <TouchableOpacity onPress={() => {
+                    ZavalabsScanner.showBarcodeReader(result => {
 
+                        if (result !== null) {
+                            axios.post(apiURL + 'scan_add', {
+                                resi: result
+                            }).then(res => {
+                                console.log(res.data);
+                                if (res.data.status == 200) {
+                                    showMessage({
+                                        type: 'success',
+                                        message: res.data.message
+                                    });
+                                    getTransaction();
+                                } else if (res.data.status == 404) {
+                                    MySound.play();
+                                    showMessage({
+                                        type: 'danger',
+                                        message: res.data.message
+                                    })
+                                }
+                            })
+                        }
+
+                    });
+                }} style={{
+                    width: 60,
+                    height: 60,
+                    elevation: 4,
+                    backgroundColor: colors.black,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 30,
+                }}>
+                    <Icon color={colors.white} type='ionicon' name='barcode-outline' size={30} />
+                </TouchableOpacity>
+            </View>
 
             <Modal
                 animationType="fade"
@@ -279,7 +300,6 @@ export default function Order({ navigation }) {
                             }} data={[
                                 { value: 'resi', label: 'Resi' },
                                 { value: 'nomor_order', label: 'Nomor Order' },
-
 
 
                             ]} />

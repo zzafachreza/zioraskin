@@ -92,6 +92,20 @@ export default function AAAtur({ navigation }) {
                     <Icon type='ionicon' name='chevron-forward' color={colors.black} />
                 </TouchableOpacity>
 
+                <TouchableOpacity onPress={() => navigation.navigate('Produk')} style={{
+                    flexDirection: 'row',
+                    padding: 20,
+                    marginVertical: 2
+                }}>
+                    <Text style={{
+                        flex: 1,
+                        fontFamily: fonts.primary[600],
+                        fontSize: windowWidth / 20,
+                        color: colors.black
+                    }}>Data Barang</Text>
+                    <Icon type='ionicon' name='chevron-forward' color={colors.black} />
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={() => navigation.navigate('Home')} style={{
                     flexDirection: 'row',
                     padding: 20,
