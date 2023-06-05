@@ -83,7 +83,7 @@ export default function CekDetail({ navigation, route }) {
                         borderRadius: 10,
                     }}>
                         <MYlistdata label="Kode Produksi" value={data.kode} />
-                        <MYlistdata label="Tanggal" value={moment(data.tanggal_terima).format('dddd, DD MMM YYYY') + ' Pukul ' + data.jam_terima} />
+                        <MYlistdata label="Tanggal" value={moment(data.tanggal_cek).format('dddd, DD MMM YYYY') + ' Pukul ' + data.jam_cek} />
                     </View>
 
                     <View style={{

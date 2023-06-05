@@ -160,7 +160,7 @@ export default function Produk({ navigation }) {
                                     fontSize: 12,
                                     color: colors.foourty,
                                     flex: 0.4,
-                                }}>Stok Gudang</Text>
+                                }}>Stok Lolos</Text>
                                 <Text style={{
                                     fontFamily: fonts.secondary[400],
                                     fontSize: 12,

@@ -18,7 +18,7 @@ import { Modal } from 'react-native';
 
 
 
-export default function PackingDetail({ navigation, route }) {
+export default function PackingKirimDetail({ navigation, route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState([]);
     const isFocused = useIsFocused();
@@ -187,7 +187,7 @@ export default function PackingDetail({ navigation, route }) {
 
                                     }}>
                                         <View style={{
-                                            backgroundColor: colors.warning,
+                                            backgroundColor: colors.success,
                                             width: 70,
                                             height: 20,
                                             justifyContent: 'center',
@@ -204,13 +204,6 @@ export default function PackingDetail({ navigation, route }) {
 
 
                                         </View>
-                                        <TouchableOpacity onPress={() => addCheck(i.id, i.nama_barang)} style={{
-                                            // width: 50,
-                                            paddingLeft: 20,
-                                        }}>
-                                            <Icon type='ionicon' size={30} color={liked.includes(i.id) ? colors.success : colors.black}
-                                                name='checkbox' />
-                                        </TouchableOpacity>
 
                                     </View>
 
@@ -240,40 +233,7 @@ export default function PackingDetail({ navigation, route }) {
 
             }}>
 
-                <View style={{
-                    flex: 1,
 
-                }}>
-                    <MyButton onPress={() => {
-
-                        console.log(liked.length);
-                        if (liked.length !== data.length) {
-                            showMessage({
-                                type: 'danger',
-                                message: 'Barang belum di cek semua !'
-                            })
-                        } else {
-                            setLoading(true);
-                            axios.post(apiURL + 'order_packing', {
-                                nomor_order: route.params.nomor_order
-                            }).then(res => {
-                                console.log(res.data);
-                                setTimeout(() => {
-                                    if (res.data.status == 200) {
-                                        setLoading(false);
-                                        showMessage({
-                                            message: res.data.message,
-                                            type: 'success'
-                                        })
-                                        navigation.goBack();
-                                    }
-                                }, 1000);
-                            })
-                        }
-
-
-                    }} title="Siap untuk di kemas" warna={colors.danger} Icons="download-outline" />
-                </View>
 
             </View>}
 

@@ -49,7 +49,7 @@ export default function PackingKirim({ navigation }) {
     const __renderItem = ({ item }) => {
 
         return (
-            <TouchableOpacity onPress={() => navigation.navigate('PackingDetail', item)} style={{
+            <TouchableOpacity onPress={() => navigation.navigate('PackingKirimDetail', item)} style={{
                 borderBottomWidth: 1,
                 borderBottomColor: colors.zavalabs,
                 backgroundColor: colors.white,

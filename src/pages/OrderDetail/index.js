@@ -226,32 +226,24 @@ export default function OrderDetail({ navigation, route }) {
 
                 }}>
                     <MyButton onPress={() => {
-                        Alert.alert(MYAPP, 'Apakah kamu yakin akan packing pesanan ini ?', [
-                            { text: 'TIDAK' },
-                            {
-                                text: 'PACKING PESANAN',
-                                onPress: () => {
-
-                                    setLoading(true);
-                                    axios.post(apiURL + 'order_packing', {
-                                        nomor_order: route.params.nomor_order
-                                    }).then(res => {
-                                        console.log(res.data);
-                                        setTimeout(() => {
-                                            if (res.data.status == 200) {
-                                                setLoading(false);
-                                                showMessage({
-                                                    message: res.data.message,
-                                                    type: 'success'
-                                                })
-                                                navigation.goBack();
-                                            }
-                                        }, 1000);
+                        setLoading(true);
+                        axios.post(apiURL + 'order_prepacking', {
+                            nomor_order: route.params.nomor_order
+                        }).then(res => {
+                            console.log(res.data);
+                            setTimeout(() => {
+                                if (res.data.status == 200) {
+                                    setLoading(false);
+                                    showMessage({
+                                        message: res.data.message,
+                                        type: 'success'
                                     })
+                                    navigation.goBack();
                                 }
-                            }
-                        ])
-                    }} title="Buat Packing Pesanan" warna={colors.secondary} Icons="download-outline" />
+                            }, 1000);
+                        })
+
+                    }} title="Siap Untuk di Cek" warna={colors.secondary} Icons="shield-checkmark-outline" />
                 </View>
 
             </View>}

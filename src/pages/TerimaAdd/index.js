@@ -28,6 +28,14 @@ export default function TerimaAdd({ navigation, route }) {
         quality: 1,
     };
 
+    const [show, setShow] = useState({
+        kode: '',
+        nama_barang: '',
+        fid_barcode: ''
+    });
+
+
+
     const getGallery = xyz => {
         launchImageLibrary(options, response => {
             // console.log('All Response = ', response);
@@ -67,7 +75,6 @@ export default function TerimaAdd({ navigation, route }) {
 
     const [kirim, setKirim] = useState({
         kode: '',
-        fid_barcode: '',
         qty_datang: ''
     });
     const [loading, setLoading] = useState(false);
@@ -125,58 +132,17 @@ export default function TerimaAdd({ navigation, route }) {
                             ZavalabsScanner.showBarcodeReader(result => {
 
                                 if (result !== null) {
-                                    setKirim({
-                                        ...kirim,
+
+                                    axios.post(apiURL + 'get_batch', {
                                         kode: result
-                                    })
-                                }
-
-                            });
-                        }} style={{
-                            padding: 10,
-                            width: 80,
-                            marginLeft: 5,
-                            flex: 1,
-                            borderRadius: 10,
-                            backgroundColor: colors.primary,
-                            // flex: 1,
-                            justifyContent: 'center',
-                            alignItems: 'center'
-                        }}>
-                            <Icon type='ionicon' name='barcode-outline' color={colors.white} size={25} />
-                        </TouchableOpacity>
-                    </View>
-
-
-                </View>
-
-                <View style={{
-                    padding: 10,
-                    backgroundColor: colors.white,
-                    marginVertical: 5,
-                    borderRadius: 10,
-                }}>
-                    <Text style={{
-                        fontFamily: fonts.secondary[600],
-                        fontSize: 20,
-                        marginBottom: 10,
-                    }}>Barcode Barang</Text>
-
-                    <View style={{
-                        flexDirection: 'row'
-                    }}>
-                        <View style={{
-                            flex: 1,
-                        }}>
-                            <MyInput nolabel label="barcode barang" iconname="barcode-outline" placeholder="Masukan barcode" value={kirim.fid_barcode} onChangeText={x => setKirim({ ...kirim, fid_barcode: x })} />
-                        </View>
-                        <TouchableOpacity onPress={() => {
-                            ZavalabsScanner.showBarcodeReader(result => {
-
-                                if (result !== null) {
-                                    setKirim({
-                                        ...kirim,
-                                        fid_barcode: result
+                                    }).then(h => {
+                                        console.log(h.data);
+                                        setShow(h.data[0]);
+                                        setKirim({
+                                            ...kirim,
+                                            kode: result,
+                                            fid_barcode: h.data[0].fid_barcode
+                                        })
                                     })
                                 }
 
@@ -209,6 +175,30 @@ export default function TerimaAdd({ navigation, route }) {
                     marginVertical: 20,
                     borderRadius: 10,
                 }}>
+
+                    <View style={{
+                        marginVertical: 10,
+                        borderBottomWidth: 1,
+                        paddingBottom: 5,
+                        borderBottomColor: colors.border
+                    }}>
+                        <View style={{
+                            flexDirection: 'row'
+                        }}>
+                            <Text style={{ flex: 0.3 }}>Barcode</Text>
+                            <Text style={{ flex: 0.1 }}>:</Text>
+                            <Text style={{ flex: 1, fontFamily: fonts.secondary[600] }}>{show.fid_barcode}</Text>
+                        </View>
+                        <View style={{
+                            flexDirection: 'row'
+                        }}>
+                            <Text style={{ flex: 0.3 }}>Nama Barang</Text>
+                            <Text style={{ flex: 0.1 }}>:</Text>
+                            <Text style={{ flex: 1, fontFamily: fonts.secondary[600] }}>{show.nama_barang}</Text>
+                        </View>
+                    </View>
+
+
                     <Text style={{
                         fontFamily: fonts.secondary[600],
                         fontSize: 20,

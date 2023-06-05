@@ -18,7 +18,7 @@ import { Modal } from 'react-native';
 
 
 
-export default function PackingDetail({ navigation, route }) {
+export default function OrderDetail({ navigation, route }) {
     const [modalVisible, setModalVisible] = useState(false);
     const [data, setData] = useState([]);
     const isFocused = useIsFocused();
@@ -26,7 +26,7 @@ export default function PackingDetail({ navigation, route }) {
     const [edit, setEdit] = useState({});
 
     const getDetail = () => {
-        axios.post(apiURL + 'prepacking_detail', {
+        axios.post(apiURL + 'order_detail', {
             nomor_order: route.params.nomor_order
         }).then(res => {
             setLoading(false);
@@ -41,34 +41,6 @@ export default function PackingDetail({ navigation, route }) {
         }
     }, [isFocused]);
 
-
-    const [liked, setLiked] = useState([]);
-
-    const addCheck = (x, y) => {
-
-
-        if (liked.includes(x)) {
-            let unlike = liked.filter((elem) => elem !== x);
-            showMessage({
-                type: 'default',
-                message: `${y} tidak jadi di cek !`
-            })
-            setLiked(unlike);
-
-        } else {
-            setLiked([...liked, x]);
-            showMessage({
-                type: 'success',
-                message: `${y} berhasil di cek !`
-            })
-
-        }
-
-
-
-
-
-    }
     const MYlistdata = ({ label, value }) => {
         return (
             <View style={{
@@ -184,10 +156,10 @@ export default function PackingDetail({ navigation, route }) {
                                         justifyContent: 'center',
                                         alignItems: 'center',
                                         flexDirection: 'row',
-
+                                        flex: 1,
                                     }}>
                                         <View style={{
-                                            backgroundColor: colors.warning,
+                                            backgroundColor: colors.success,
                                             width: 70,
                                             height: 20,
                                             justifyContent: 'center',
@@ -204,16 +176,25 @@ export default function PackingDetail({ navigation, route }) {
 
 
                                         </View>
-                                        <TouchableOpacity onPress={() => addCheck(i.id, i.nama_barang)} style={{
-                                            // width: 50,
-                                            paddingLeft: 20,
-                                        }}>
-                                            <Icon type='ionicon' size={30} color={liked.includes(i.id) ? colors.success : colors.black}
-                                                name='checkbox' />
-                                        </TouchableOpacity>
 
                                     </View>
+                                    <View style={{
+                                        flex: 1,
+                                        justifyContent: 'flex-end',
+                                        alignItems: 'flex-end'
+                                    }}>
 
+                                        <TouchableOpacity onPress={() => {
+                                            setModalVisible(true);
+                                            setEdit(i);
+                                            setTimeout(() => {
+                                                _myinput.current.focus();
+                                            }, 1000)
+
+                                        }}>
+                                            <Icon type='ionicon' name='create' color={colors.secondary} />
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             )
                         })}
@@ -245,34 +226,32 @@ export default function PackingDetail({ navigation, route }) {
 
                 }}>
                     <MyButton onPress={() => {
+                        Alert.alert(MYAPP, 'Apakah kamu yakin akan packing pesanan ini ?', [
+                            { text: 'TIDAK' },
+                            {
+                                text: 'PACKING PESANAN',
+                                onPress: () => {
 
-                        console.log(liked.length);
-                        if (liked.length !== data.length) {
-                            showMessage({
-                                type: 'danger',
-                                message: 'Barang belum di cek semua !'
-                            })
-                        } else {
-                            setLoading(true);
-                            axios.post(apiURL + 'order_packing', {
-                                nomor_order: route.params.nomor_order
-                            }).then(res => {
-                                console.log(res.data);
-                                setTimeout(() => {
-                                    if (res.data.status == 200) {
-                                        setLoading(false);
-                                        showMessage({
-                                            message: res.data.message,
-                                            type: 'success'
-                                        })
-                                        navigation.goBack();
-                                    }
-                                }, 1000);
-                            })
-                        }
-
-
-                    }} title="Siap untuk di kemas" warna={colors.danger} Icons="download-outline" />
+                                    setLoading(true);
+                                    axios.post(apiURL + 'order_packing', {
+                                        nomor_order: route.params.nomor_order
+                                    }).then(res => {
+                                        console.log(res.data);
+                                        setTimeout(() => {
+                                            if (res.data.status == 200) {
+                                                setLoading(false);
+                                                showMessage({
+                                                    message: res.data.message,
+                                                    type: 'success'
+                                                })
+                                                navigation.goBack();
+                                            }
+                                        }, 1000);
+                                    })
+                                }
+                            }
+                        ])
+                    }} title="Buat Packing Pesanan" warna={colors.secondary} Icons="download-outline" />
                 </View>
 
             </View>}

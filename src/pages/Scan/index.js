@@ -33,6 +33,7 @@ export default function Scan({ navigation }) {
 
     const [data, setData] = useState([]);
     const [tmp, setTemp] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [filter, setFilter] = useState({
         key: 'resi',
     })
@@ -47,7 +48,7 @@ export default function Scan({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'scan_hasil').then(res => {
+        axios.post(apiURL + 'packing').then(res => {
             console.log(res.data);
             setData(res.data);
             setTemp(res.data);
@@ -105,8 +106,14 @@ export default function Scan({ navigation }) {
 
 
                 </View>
-
-                <TouchableOpacity onPress={() => {
+                <View style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    padding: 10,
+                }}>
+                    <Icon type='ionicon' name={item.cek > 0 ? 'checkmark-circle' : 'close'} size={30} color={item.cek > 0 ? colors.success : colors.danger} />
+                </View>
+                {/* <TouchableOpacity onPress={() => {
                     Alert.alert(MYAPP, 'Apakah kamu akan hapus resi ini ?', [
                         { text: 'TIDAK' },
                         {
@@ -133,7 +140,7 @@ export default function Scan({ navigation }) {
                     width: 40,
                 }}>
                     <Icon color={colors.white} type='ionicon' name='trash' />
-                </TouchableOpacity>
+                </TouchableOpacity> */}
 
 
             </View >
@@ -217,6 +224,39 @@ export default function Scan({ navigation }) {
             </View>
 
 
+            <View style={{
+                position: 'absolute',
+                bottom: 20,
+                left: 20,
+            }}>
+                <TouchableOpacity onPress={() => {
+                    Alert.alert(MYAPP, 'Apakah kamu yakin akan posting ini ?', [
+                        { text: 'Tidak' },
+                        {
+                            text: 'POSTING',
+                            onPress: () => {
+                                setLoading(true);
+                                axios.post(apiURL + 'posting_resi').then(res => {
+                                    console.log(res.data);
+                                    Alert.alert(MYAPP, res.data);
+                                    getTransaction();
+                                    setLoading(false);
+                                })
+                            }
+                        }
+                    ])
+                }} style={{
+                    width: 60,
+                    height: 60,
+                    elevation: 4,
+                    backgroundColor: colors.success,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: 30,
+                }}>
+                    <Icon color={colors.white} type='ionicon' name='open-outline' size={30} />
+                </TouchableOpacity>
+            </View>
 
             <View style={{
                 position: 'absolute',

@@ -33,12 +33,14 @@ import Packing from './Packing';
 import PackingDetail from './PackingDetail';
 import Scan from './Scan';
 import PackingKirim from './PackingKirim';
+import Cetak from './Cetak';
+import PackingKirimDetail from './PackingKirimDetail';
 
 // produk
 
 
 
-// NEW
+// NEWCetak
 
 
 
@@ -88,6 +90,8 @@ export {
   Packing,
   PackingDetail,
   Scan,
-  PackingKirim
+  PackingKirim,
+  Cetak,
+  PackingKirimDetail
 
 };

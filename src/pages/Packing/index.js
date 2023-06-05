@@ -38,7 +38,7 @@ export default function Packing({ navigation }) {
 
 
     const getTransaction = () => {
-        axios.post(apiURL + 'packing').then(res => {
+        axios.post(apiURL + 'prepacking').then(res => {
             console.log(res.data);
             setData(res.data);
             setTemp(res.data);
@@ -141,32 +141,9 @@ export default function Packing({ navigation }) {
                                 fontFamily: fonts.secondary[600],
                                 fontSize: 12,
                                 color: colors.foourty
-                            }}>{item.resi}</Text>
+                            }}>{item.resi} / {item.kurir}</Text>
                         </View>
-                        <View style={{
-                            flexDirection: 'row'
-                        }}>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.3,
-                            }}>Status</Text>
-                            <Text style={{
-                                fontFamily: fonts.secondary[400],
-                                fontSize: 12,
-                                color: colors.foourty,
-                                flex: 0.1,
-                            }}>:</Text>
 
-                            <Text style={{
-                                flex: 1,
-                                fontFamily: fonts.secondary[800],
-                                fontSize: 15,
-                                color: item.cek > 0 ? colors.success : colors.warning
-                            }}>{item.cek > 0 ? 'TERKIRIM' : item.status_packing}</Text>
-
-                        </View>
                     </View>
 
 

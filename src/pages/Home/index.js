@@ -102,10 +102,61 @@ export default function Home({ navigation }) {
           flexDirection: 'row',
           justifyContent: 'space-around'
         }}>
+          <TouchableOpacity onPress={() => navigation.navigate('Produk')} style={{
+            width: windowWidth / 3,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.zavalabs,
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Image source={require('../../assets/AS.png')} style={{
+              width: 60,
+              height: 60,
+              resizeMode: 'contain'
+            }} />
+            <Text style={{
+              top: 10,
+              fontSize: 11,
+              fontFamily: fonts.secondary[600],
+              marginBottom: 10,
+              textAlign: 'center'
+            }}>Stok{'\n'}Barang</Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => navigation.navigate('Cetak')} style={{
+            width: windowWidth / 3,
+            borderRadius: 10,
+            borderWidth: 1,
+            borderColor: colors.zavalabs,
+            padding: 10,
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}>
+            <Image source={require('../../assets/A0.png')} style={{
+              width: 60,
+              height: 60,
+              resizeMode: 'contain'
+            }} />
+            <Text style={{
+              top: 10,
+              fontSize: 11,
+              fontFamily: fonts.secondary[600],
+              marginBottom: 10,
+              textAlign: 'center'
+            }}>Print{'\n'}No. Batch</Text>
+          </TouchableOpacity>
+
+
+        </View>
+        <View style={{
+          marginTop: 10,
+          flexDirection: 'row',
+          justifyContent: 'space-around'
+        }}>
           <TouchableOpacity onPress={() => navigation.navigate('Terima')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -113,13 +164,13 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/A1.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
@@ -129,7 +180,6 @@ export default function Home({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Cek')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -137,13 +187,13 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/A2.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
@@ -158,7 +208,6 @@ export default function Home({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Order')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -166,23 +215,22 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/A3.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
-            }}>Order{'\n'}Pemesanan</Text>
+            }}>List{'\n'}Pemesanan</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('Packing')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -190,17 +238,17 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/A4.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
-            }}>Packing{'\n'}Pemesanan</Text>
+            }}>List{'\n'}Pengecekan</Text>
           </TouchableOpacity>
         </View>
         <View style={{
@@ -211,7 +259,6 @@ export default function Home({ navigation }) {
           <TouchableOpacity onPress={() => navigation.navigate('Scan')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -219,23 +266,22 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/scan.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
-            }}>Scan{'\n'}Pemesanan</Text>
+            }}>Scan{'\n'}Packing</Text>
           </TouchableOpacity>
 
           <TouchableOpacity onPress={() => navigation.navigate('PackingKirim')} style={{
             width: windowWidth / 3,
             borderRadius: 10,
-            elevation: 1,
             borderWidth: 1,
             borderColor: colors.zavalabs,
             padding: 10,
@@ -243,17 +289,17 @@ export default function Home({ navigation }) {
             alignItems: 'center'
           }}>
             <Image source={require('../../assets/A6.png')} style={{
-              width: 80,
-              height: 80,
+              width: 60,
+              height: 60,
               resizeMode: 'contain'
             }} />
             <Text style={{
               top: 10,
-              fontSize: 14,
+              fontSize: 11,
               fontFamily: fonts.secondary[600],
               marginBottom: 10,
               textAlign: 'center'
-            }}>Pesanan{'\n'}Terkirim</Text>
+            }}>List{'\n'}Pengiriman</Text>
           </TouchableOpacity>
         </View>
 

@@ -64,6 +64,12 @@ export default function CekAdd({ navigation, route }) {
         });
     };
 
+    const [show, setShow] = useState({
+        kode: '',
+        nama_barang: '',
+        fid_barcode: ''
+    });
+
 
     const [kirim, setKirim] = useState({
         kode: '',
@@ -128,9 +134,18 @@ export default function CekAdd({ navigation, route }) {
                             ZavalabsScanner.showBarcodeReader(result => {
 
                                 if (result !== null) {
-                                    setKirim({
-                                        ...kirim,
+
+
+                                    axios.post(apiURL + 'get_batch', {
                                         kode: result
+                                    }).then(h => {
+                                        console.log(h.data);
+                                        setShow(h.data[0]);
+                                        setKirim({
+                                            ...kirim,
+                                            kode: result,
+                                            fid_barcode: h.data[0].fid_barcode
+                                        })
                                     })
                                 }
 
@@ -213,7 +228,27 @@ export default function CekAdd({ navigation, route }) {
                     borderRadius: 10,
                 }}>
 
-                    <MyInput label="Rak / Gondola" iconname="file-tray-stacked" placeholder="Masukan nama rak" value={kirim.rak} onChangeText={x => setKirim({ ...kirim, rak: x })} />
+                    <View style={{
+                        marginVertical: 10,
+                        borderBottomWidth: 1,
+                        paddingBottom: 5,
+                        borderBottomColor: colors.border
+                    }}>
+                        <View style={{
+                            flexDirection: 'row'
+                        }}>
+                            <Text style={{ flex: 0.3 }}>Barcode</Text>
+                            <Text style={{ flex: 0.1 }}>:</Text>
+                            <Text style={{ flex: 1, fontFamily: fonts.secondary[600] }}>{show.fid_barcode}</Text>
+                        </View>
+                        <View style={{
+                            flexDirection: 'row'
+                        }}>
+                            <Text style={{ flex: 0.3 }}>Nama Barang</Text>
+                            <Text style={{ flex: 0.1 }}>:</Text>
+                            <Text style={{ flex: 1, fontFamily: fonts.secondary[600] }}>{show.nama_barang}</Text>
+                        </View>
+                    </View>
 
                     <Text style={{
                         fontFamily: fonts.secondary[600],

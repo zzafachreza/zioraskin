@@ -37,6 +37,8 @@ import {
   PackingDetail,
   Scan,
   PackingKirim,
+  Cetak,
+  PackingKirimDetail,
 } from '../pages';
 import { colors } from '../utils';
 import { Icon } from 'react-native-elements';
@@ -224,7 +226,7 @@ export default function Router() {
         component={Laporan}
         options={{
           headerShown: true,
-          title: 'Laporan Transaksi'
+          title: 'Tracking Resi'
         }}
       />
 
@@ -405,7 +407,7 @@ export default function Router() {
         component={Order}
         options={{
           headerShown: true,
-          headerTitle: 'Order Pesanan',
+          headerTitle: 'List Pesanan',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -418,7 +420,7 @@ export default function Router() {
         component={OrderAdd}
         options={{
           headerShown: true,
-          headerTitle: 'Order Pesanan',
+          headerTitle: 'List Pesanan',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -432,7 +434,20 @@ export default function Router() {
         component={OrderDetail}
         options={{
           headerShown: true,
-          headerTitle: 'Detail Order Pesanan',
+          headerTitle: 'Detail List Pesanan',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="PackingKirimDetail"
+        component={PackingKirimDetail}
+        options={{
+          headerShown: true,
+          headerTitle: 'Detail List Terkirim',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -445,7 +460,7 @@ export default function Router() {
         component={Packing}
         options={{
           headerShown: true,
-          headerTitle: 'Packing Pesanan',
+          headerTitle: 'List Cek Pesanan',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -458,7 +473,7 @@ export default function Router() {
         component={PackingDetail}
         options={{
           headerShown: true,
-          headerTitle: 'Detail Packing Pesanan',
+          headerTitle: 'Detail Cek Pesanan',
           headerStyle: {
             backgroundColor: colors.white,
           },
@@ -484,7 +499,20 @@ export default function Router() {
         component={PackingKirim}
         options={{
           headerShown: true,
-          headerTitle: 'Pesanan Terkirim',
+          headerTitle: 'Pesanan Siap Kirim',
+          headerStyle: {
+            backgroundColor: colors.white,
+          },
+          headerTintColor: colors.black,
+        }}
+      />
+
+      <Stack.Screen
+        name="Cetak"
+        component={Cetak}
+        options={{
+          headerShown: true,
+          headerTitle: 'Cetak Barcode',
           headerStyle: {
             backgroundColor: colors.white,
           },
